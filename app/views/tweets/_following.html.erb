@@ -1,0 +1,16 @@
+<div class="container">
+  <br>
+  <br>
+  <b>Following</b>
+  <br>
+  <br>
+    <% current_user.following.each do |following| %>
+      <%= following_list_avatar(following) %>
+      <%= following.username %>
+      <b>&nbsp;&nbsp;&nbsp;@<%= following.handle %></b>
+    <br />
+    <% end %>
+    <br>
+</div>
+
+

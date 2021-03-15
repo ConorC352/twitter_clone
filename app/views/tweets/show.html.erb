@@ -1,0 +1,57 @@
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4 offset-md-4 twitter-tweet">
+      <br>
+
+      <p><div class="text-inline-tweet"><%= tweets_index_avatar(@tweet) %>@<%= @tweet.user.handle %>&nbsp; · &nbsp;<%= time_ago_in_words(@tweet.created_at) %></div> <%= link_to "Profile", thisuser_path(@tweet.user.id), class: "btn btn-outline-primary btn-sm rounded-pill tweet_right_options" %></p>
+      <p>
+        <div class="trix-content attachment">
+          <%= @tweet.body %>
+        </div>
+      </p>
+      <p class="text-small small-text-grey">
+        <% if @tweet.retweet_id? %>
+          <i class="fas fa-retweet"></i>&nbsp;Retweeted
+          <%= link_to thisuser_path(@tweet.source_user_id) do %>
+            @<%= @tweet.username %>
+          <% end %> 
+          <%= time_ago_in_words(@tweet.created_at) %> ago
+        <% else %>
+        <% end %>
+        <br>
+        <% if current_user.id == @tweet.user.id %>
+          <%= button_to 'Remove Tweet', tweet_path(@tweet), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-primary" %>
+        <% end %>
+        <br>
+        <br>
+        <%= link_to '<i class="fas fa-retweet"></i>'.html_safe, retweet_tweet_path(@tweet.id), class: "btn btn-sm btn-primary rounded-pill", method: :post %>&nbsp;&nbsp;<%= @tweet.retweets.count %>
+        </p>
+      </hr>
+
+
+
+
+      <hr />
+      <%= form_for [@tweet, @comment], remote: true do |f| %>
+        <%= f.text_area :body, :rows => 5, :placeholder => "Reply", style: 'width:100%;' %><br>
+        <hr />
+        <%= button_tag( :class => "rounded-pill btn btn-primary btn-sm") do %>
+          <i class="fas fa-feather-alt"></i>
+        <% end %>
+      <% end %>
+      
+
+      <br>
+
+      <p class="tweet_left_options text-small"><div id="comment-count" class="inline"><%= @comments_count %></div>&nbsp;Replies</p>
+
+      <div id="comment_pane">
+        <% @comments.each do |comment| %>
+          <%= render 'comments/comment', comment: comment %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

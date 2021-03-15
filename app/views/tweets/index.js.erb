@@ -1,0 +1,16 @@
+$('.tweet-display').html("<%= j render(partial: 'tweets_index') %>")
+
+$(function() {
+    $('<div>Success</div>')
+    .insertBefore('#unfollowed')
+    .delay(3000)
+    .fadeOut(function() {
+      $(this).remove(); 
+    });
+});
+
+
+
+
+
+

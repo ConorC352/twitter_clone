@@ -1,0 +1,19 @@
+<div class="container">
+  <br>
+  <b>Your followers</b>
+  <br>
+  <br>
+    <% current_user.followers.each do |follower| %>
+     <%= follower_list_avatar(follower) %>&nbsp;&nbsp;
+     <%= follower.username %>
+      &nbsp;&nbsp;&nbsp;<b>@<%= follower.handle %></b><br>
+   <% end %>
+</div>
+
+
+
+
+
+
+
+

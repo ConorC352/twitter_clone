@@ -1,0 +1,60 @@
+
+<div class="container-flex tweet-index-margin-profile">
+      <% if user_signed_in? %>
+      <br>
+        <div class="row">
+          <div class="col-3">
+          <!-- helper, avatar on index page, see application_helper.rb -->
+            <%= link_to thisuser_path(current_user.id) do %>
+              <%= index_avatar (@index_image) %>
+            <% end %>
+          </div>
+          <div class="col-8">
+            <%= render partial: 'index_tweet_form' %>
+          </div>
+        </div>
+        <p class="inline">
+          <%= tweeted_num_text (@counted_tweets) %>
+          &nbsp;&nbsp;&nbsp;<b><%= current_user.tweets.count(:retweet_id) %></b> Retweets
+        </p>
+        <br>
+        <hr/>
+
+
+        <div class="row">
+          <div class="col-4">
+        <% if current_user.followers.count == 1 %>
+        <p>You have <b><%= current_user.followers.count %> </b><u><%= link_to "follower", 'tweets/followers' %></u></p>
+          <% else %>
+        <p>You have <b><%= current_user.followers.count %> </b><u><%= link_to "followers", 'tweets/followers' %></u></p>
+        <% end %>
+
+
+        <% if current_user.following.count == 1 %>
+          <p class="inline">You are <u><%= link_to "following", 'tweets/following' %></u> <b><div id="following_count" class="inline">&nbsp;<%= current_user.following.count %></div></b>&nbsp;other member
+          </b></p>
+            <% else %>
+          <p class="inline">You are <u><%= link_to "following", 'tweets/following' %></u> <b><div id="following_count" class="inline">&nbsp;<%= current_user.following.count %></div></b>&nbsp;other members</p>
+        <% end %>
+        </div>
+
+        <div class="col-4 text-center">
+          <b><%= button_to "Timeline", tweets_following_path, :method => :get, class: "btn btn-outline-primary btn-md rounded-pill" %></b>
+        </div>
+      </div>
+
+
+
+      <% end %>
+
+      
+        <%= render partial: 'search_tweets' %>
+
+        <%= link_to "Hello", :remote => true %>
+        
+        <div id="replies">
+          <%= render partial: 'tweets_index', locals: { tweets: @tweets } %>
+        </div>
+</div>
+
+
